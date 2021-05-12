@@ -13,10 +13,11 @@ export function idbPromise(storeName, method, object){
     //create variables to hold reference to the database, transaction (tx), and object store
     let db, tx, store;
 
-    //if version has changed (or if this is the first time using the database), run this method and create the three object stores
+    // if version has changed (or if this is the first time using the database),
+    // run this method and create the three object stores
     request.onupgradeneeded = function(e){
       const db = request.result;
-      //create object store fro each type of data aset "primary" key index to be the `id` of the data
+      //create object store for each type of data aset "primary" key index to be the `id` of the data
       db.createObjectStore('products', {keyPath: '_id'});
       db.createObjectStore('categories', {keyPath: '_id'});
       db.createObjectStore('cart', {keyPath: '_id'});
