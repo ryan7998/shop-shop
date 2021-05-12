@@ -23,4 +23,4 @@
 - Backend: apollo-server-express, express, graphql, jsonwebtoken, mongoose, stripe
 
 ## Site:
-- Link to the site: https://ryan7998.github.io/react-portfolio/
+- Link to the site: https://ryan7998-redux-shop.herokuapp.com
