@@ -14,6 +14,9 @@ import {Provider} from 'react-redux';
 import store from './utils/store';
 import OrderHistory from "./pages/OrderHistory";
 import Success from "./pages/Success";
+import Footer from "./components/Footer";
+
+import {Container} from 'semantic-ui-react'
 
 const client = new ApolloClient({
   request: (operation) => {
@@ -31,7 +34,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <div>
+        <Container fluid>
           <Provider store={store}>
             <Nav />
             <Switch>
@@ -43,8 +46,9 @@ function App() {
               <Route exact path="/success" component={Success} />
               <Route component={NoMatch} />
             </Switch>
+            <Footer />
           </Provider>
-        </div>
+        </Container>
       </Router>
     </ApolloProvider>
 

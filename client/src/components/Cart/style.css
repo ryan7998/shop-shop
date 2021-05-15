@@ -19,13 +19,19 @@
     margin: 1rem 0;
   }
   
-  .cart .close {
+  .cart .closeBtn{
+    float: right;
+  }
+  .cart-closed .shop{
+    margin: 10px 0.25rem 0px 3px;
+  }
+  /* .cart .close {
     position: absolute;
     top: .5rem;
     right: .5rem;
     cursor: pointer;
     color: var(--tertiary);
-  }
+  } */
   
   .cart .close:hover {
     text-decoration: underline;

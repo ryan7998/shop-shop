@@ -1,57 +1,57 @@
 import React from "react";
 import Auth from "../../utils/auth";
 import { Link } from "react-router-dom";
+import { Menu, Segment, Icon } from 'semantic-ui-react';
 
 function Nav() {
 
   function showNavigation() {
     if (Auth.loggedIn()) {
       return (
-        <ul className="flex-row">
-          <li className="mx-1">
-            <Link to="/orderHistory">
-              Order History
-            </Link>
-          </li>
-          <li className="mx-1">
-            {/* this is not using the Link component to logout or user and then refresh the application to the start */}
-            <a href="/" onClick={() => Auth.logout()}>
-              Logout
-            </a>
-          </li>
-        </ul>
+        <>
+          <Link to="/orderHistory">
+            <Menu.Item
+              name='Order History'
+            />
+          </Link>
+            <Menu.Item
+              name='Log Out'
+              onClick={() => Auth.logout()}
+            />
+        </>
       );
     } else {
       return (
-        <ul className="flex-row">
-          <li className="mx-1">
-            <Link to="/signup">
-              Signup
-            </Link>
-          </li>
-          <li className="mx-1">
-            <Link to="/login">
-              Login
-            </Link>
-          </li>
-        </ul>
+        <>
+          <Link to="/signup">
+            <Menu.Item
+              name='Signup'
+            />
+          </Link>
+          <Link to="/login">
+            <Menu.Item
+              name='Login'
+            />
+          </Link>
+        </>
       );
     }
   }
 
   return (
-    <header className="flex-row px-1">
-      <h1>
-        <Link to="/">
-          <span role="img" aria-label="shopping bag">🛍️</span>
-          -Shop-Shop
-        </Link>
-      </h1>
 
-      <nav>
-        {showNavigation()}
-      </nav>
-    </header>
+      <Segment inverted>
+        <Menu inverted fixed>
+            <Icon.Group size='huge'>
+            <Link to="/">
+              <Icon color='yellow' name='shopping basket' />
+            </Link>
+            </Icon.Group>
+            <Menu.Menu position='left' style={{margin:'20px'}}>
+              {showNavigation()}
+          </Menu.Menu>
+        </Menu>
+      </Segment>
   );
 }
 

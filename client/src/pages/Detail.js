@@ -14,6 +14,7 @@ import { QUERY_PRODUCTS } from "../utils/queries";
 import spinner from '../assets/spinner.gif'
 import Cart from "../components/Cart";
 import CartItem from "../components/CartItem";
+import { Container, Divider, Button, Icon } from 'semantic-ui-react'
 
 function Detail() {
   // create state and dispatch from redux:
@@ -90,7 +91,7 @@ function Detail() {
   return (
     <>
       {currentProduct ? (
-        <div className="container my-1">
+        <Container textAlign='center' style={{padding:"5em"}}>
           <Link to="/">
             ← Back to Products
           </Link>
@@ -105,22 +106,30 @@ function Detail() {
             <strong>Price:</strong>
             ${currentProduct.price}
             {" "}
-            <button onClick={addToCart}>
-              Add to Cart
-            </button>
-            <button
+          </p>
+          <p>
+            <Button size='huge' color="green" animated='vertical'>
+              <Button.Content hidden onClick={addToCart}>Add</Button.Content>
+              <Button.Content visible>
+                <Icon name='shop' />
+              </Button.Content>
+            </Button>
+
+            <Button size='huge' color="red" animated='vertical' 
               disabled={!cart.find(p=>p._id === currentProduct._id)}
-              onClick={removeFromCart}
             >
-              Remove from Cart
-            </button>
+              <Button.Content hidden onClick={removeFromCart}>Remove</Button.Content>
+              <Button.Content visible>
+                <Icon name='remove' />
+              </Button.Content>
+            </Button>
           </p>
 
           <img
             src={`/images/${currentProduct.image}`}
             alt={currentProduct.name}
           />
-        </div>
+        </Container>
       ) : null}
       {
         loading ? <img src={spinner} alt="loading" /> : null

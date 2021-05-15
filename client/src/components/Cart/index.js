@@ -9,6 +9,7 @@ import {TOGGLE_CART, ADD_MULTIPLE_TO_CART} from '../../utils/actions';
 import {idbPromise} from "../../utils/helpers";
 import {QUERY_CHECKOUT} from '../../utils/queries';
 import {loadStripe} from '@stripe/stripe-js';
+import {Button, Icon} from 'semantic-ui-react';
 
 const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
@@ -69,26 +70,17 @@ const Cart = () =>{
     if(!state.cartOpen){
         return(
             <div className="cart-closed" onClick={toggleCart}>
-                <span
-                    role="img" aria-label="trash">
-                    🛒
-                </span>
+                <Icon name="shop" />
             </div>
         );
     }
-    console.log(state);
+    // console.log(state);
     return(
-        <div className="cart">
-            <div className="close"
-                onClick={toggleCart}           
-            >[close]</div>
-            
+        <div className="cart" style={{padding:"2em"}}>
+            <Button circular icon='close' size="large" onClick={toggleCart} className="closeBtn" color="red"/>
             <h2>Shopping Cart</h2>
             {state.cart.length ?(
                 <div>
-                    {/* <CartItem item={{name:'Camera', image:'camera.jpg', price:5, purchaseQuantity:3}} />
-                    <CartItem item={{name:'Soap', image:'soap.jpg', price:6, purchaseQuantity:4 }} /> */}
-
                     {state.cart.map(item =>(
                         <CartItem key={item._id} item={item} />
                     ))}
@@ -97,9 +89,7 @@ const Cart = () =>{
                         <strong>Total: ${calculateTotal()}</strong>
                         {
                             Auth.loggedIn() ?
-                            <button onClick={submitCheckout}>
-                                Checkout
-                            </button>
+                            <Button circular color='green' icon='shop'  onClick={submitCheckout} content={'Checkout'}/>
                             :
                             <span>(Log in to check out</span>
                         }
@@ -107,9 +97,10 @@ const Cart = () =>{
                 </div>
             ):(
                 <h3>
-                    <span role="img" aria-label="schocked">
+                    {/* <span role="img" aria-label="schocked">
                         😱
-                    </span>
+                    </span> */}
+                    <Icon name="zip"/>
                     You haven't added anything to your cart yet!
                 </h3>
             )}

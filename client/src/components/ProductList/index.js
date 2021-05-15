@@ -7,7 +7,9 @@ import { useQuery } from '@apollo/react-hooks';
 
 import ProductItem from "../ProductItem";
 import { QUERY_PRODUCTS } from "../../utils/queries";
-import spinner from "../../assets/spinner.gif"
+import spinner from "../../assets/spinner.gif";
+
+import { Card } from 'semantic-ui-react'
 
 function ProductList() {
 
@@ -54,9 +56,10 @@ function ProductList() {
 
   return (
     <div className="my-2">
-      <h2>Our Products:</h2>
+      {/* <h2>Our Products:</h2> */}
       {state.products.length ? (
-        <div className="flex-row">
+        // <div className="flex-row">
+        <Card.Group itemsPerRow = {4}>
             {filterProducts().map(product => (
                 <ProductItem
                   key= {product._id}
@@ -67,7 +70,8 @@ function ProductList() {
                   quantity={product.quantity}
                 />
             ))}
-        </div>
+        {/* </div> */}
+        </Card.Group>
       ) : (
         <h3>You haven't added any products yet!</h3>
       )}

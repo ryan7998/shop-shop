@@ -2,6 +2,7 @@ import React from 'react';
 import { REMOVE_FROM_CART, UPDATE_CART_QUANTITY } from '../../utils/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import {idbPromise} from '../../utils/helpers';
+import {Icon} from 'semantic-ui-react';
 const CartItem = ({item}) =>{
     
     const dispatch = useDispatch();
@@ -16,13 +17,11 @@ const CartItem = ({item}) =>{
 
     const onChange = (e) =>{
         const value = e.target.value;
-
         if(value === '0'){
             dispatch({
                 type: REMOVE_FROM_CART,
                 _id: item._id
             });
-
             idbPromise('cart', 'delete', {...item});
         }else{
             dispatch({
@@ -52,13 +51,7 @@ const CartItem = ({item}) =>{
                         value={item.purchaseQuantity}
                         onChange={onChange}
                     />
-                    <span
-                        role="img"
-                        aria-label="trash"
-                        onClick = {()=> removeFromCart(item)}
-                    >
-                        🗑️
-                    </span>
+                    <Icon name="zip" color="red" onClick = {()=> removeFromCart(item)} />
                 </div>
             </div>
         </div>

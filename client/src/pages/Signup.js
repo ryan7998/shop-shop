@@ -3,13 +3,17 @@ import { Link } from "react-router-dom";
 import { useMutation } from '@apollo/react-hooks';
 import Auth from "../utils/auth";
 import { ADD_USER } from "../utils/mutations";
+import { Form, Button, Grid, Header, Icon, Image, Message, Segment, TextArea } from 'semantic-ui-react'
+
 
 function Signup() {
   const [formState, setFormState] = useState({ email: '', password: '' });
-  const [addUser] = useMutation(ADD_USER);
+  const [addUser, {error}] = useMutation(ADD_USER);
 
   const handleFormSubmit = async event => {
     event.preventDefault();
+    try{
+
     const mutationResponse = await addUser({
       variables: {
         email: formState.email, password: formState.password,
@@ -18,6 +22,10 @@ function Signup() {
     });
     const token = mutationResponse.data.addUser.token;
     Auth.login(token);
+  }catch(e){
+    console.log(e);
+  }
+
   };
 
   const handleChange = event => {
@@ -29,60 +37,31 @@ function Signup() {
   };
 
   return (
-    <div className="container my-1">
-      <Link to="/login">
-        ← Go to Login
-      </Link>
 
-      <h2>Signup</h2>
-      <form onSubmit={handleFormSubmit}>
-        <div className="flex-row space-between my-2">
-          <label htmlFor="firstName">First Name:</label>
-          <input
-            placeholder="First"
-            name="firstName"
-            type="firstName"
-            id="firstName"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex-row space-between my-2">
-          <label htmlFor="lastName">Last Name:</label>
-          <input
-            placeholder="Last"
-            name="lastName"
-            type="lastName"
-            id="lastName"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex-row space-between my-2">
-          <label htmlFor="email">Email:</label>
-          <input
-            placeholder="youremail@test.com"
-            name="email"
-            type="email"
-            id="email"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex-row space-between my-2">
-          <label htmlFor="pwd">Password:</label>
-          <input
-            placeholder="******"
-            name="password"
-            type="password"
-            id="pwd"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex-row flex-end">
-          <button type="submit">
-            Submit
-          </button>
-        </div>
-      </form>
-    </div>
+  <div >
+    <Grid textAlign='center' style={{ height: '80vh' }} verticalAlign='middle'>
+    <Grid.Column style={{ maxWidth: 450 }}>
+      <Header as='h2' color='olive' textAlign='center'>Sign up</Header>
+      <Form size='large' onSubmit={handleFormSubmit}>
+      <Segment stacked>
+        <Form.Group widths='equal'>
+          <Form.Input required fluid placeholder='First name' name="firstName" onChange={handleChange} />
+          <Form.Input required fluid placeholder='Last name' name="lastName" onChange={handleChange} />
+        </Form.Group>
+          <Form.Input required fluid placeholder='Email' name="email" onChange={handleChange} />
+          <Form.Input type='password' required fluid placeholder='Password' name="password" onChange={handleChange} />
+        <Form.Checkbox required label='I agree to the Terms and Conditions' />
+        </Segment>
+        
+        <Button color='olive' fluid size='large'>
+          Sign up
+        </Button>
+        {error && <Message color='red'>Registration Failed! Please try again</Message>}
+
+      </Form>
+    </Grid.Column>
+  </Grid>
+  </div>
   );
 
 }
