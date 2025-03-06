@@ -23,4 +23,4 @@
 - Backend: apollo-server-express, express, graphql, jsonwebtoken, mongoose, stripe
 
 ## Site:
-- Link to the site: [https://ryan7998-redux-shop.herokuapp.com](https://shoppers-1a838b06e1f0.herokuapp.com/)
+- Link to the site: [https://shopshop.onthis.website](https://shopshop.onthis.website/)
